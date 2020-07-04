@@ -84,6 +84,7 @@ const PlanetCard: React.FC<Props> = ({ planet }) => {
 
         {info && (
           <div className="PlanetCard__details">
+            <p className="PlanetCard__text">{info}</p>
             <div className=" PlanetCard__button--container">
               <button
                 type="button"
@@ -93,7 +94,6 @@ const PlanetCard: React.FC<Props> = ({ planet }) => {
                 Close
               </button>
             </div>
-            <p className="PlanetCard__text">{info}</p>
           </div>
         )}
       </div>
