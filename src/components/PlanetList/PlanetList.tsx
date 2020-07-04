@@ -10,7 +10,10 @@ const PlanetList: React.FC<Props> = ({ planets }) => {
     <>
       <div className="PlanetCard">
         {planets.map(planet => (
-          <PlanetCard key={planet.id} planet={planet} />
+          <div key={planet.id}>
+            <PlanetCard planet={planet} />
+          </div>
+
         ))}
 
       </div>

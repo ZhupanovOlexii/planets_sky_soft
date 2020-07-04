@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './PlanetCard.scss';
-// import PlanetDetails from '../PlanetDetails/PlanetDetails';
 
 type Props = {
   planet: Planet;
 };
 
 const PlanetCard: React.FC<Props> = ({ planet }) => {
-  //   const [info, setInfo] = useState('');
+  const [info, setInfo] = useState('');
 
-  // const getDetailInfo = (planet: Planet) => {
-  //      setInfo(planet.description)
-  // };
+  const getDetailInfo = (currentPlanet: Planet) => {
+    setInfo(currentPlanet.description);
+  };
+
+  const removeDescription = () => {
+    setInfo('');
+  };
 
   return (
     <>
-
       <div className="PlanetCard__list">
         <div className="PlanetCard__info">
           <div className="PlanetCard__description">
@@ -61,28 +63,40 @@ const PlanetCard: React.FC<Props> = ({ planet }) => {
           </div>
           <div className="PlanetCard__description">
             <p className="PlanetCard__title">
-              moons
+              Moons
               {' '}
             </p>
             <p className="PlanetCard__value">
               {planet.moons?.count}
             </p>
           </div>
-
         </div>
 
-        <div className="PlanetCard__button">
+        <div className=" PlanetCard__button--container">
           <button
-            className="PlanetCard__button--info"
+            className=" PlanetCard__button--info"
             type="button"
+            onClick={() => getDetailInfo(planet)}
           >
             More info
           </button>
         </div>
 
-        {/* <PlanetDetails info={info}/> */}
+        {info && (
+          <div className="PlanetCard__details">
+            <div className=" PlanetCard__button--container">
+              <button
+                type="button"
+                className=" PlanetCard__button--info "
+                onClick={removeDescription}
+              >
+                Close
+              </button>
+            </div>
+            <p className="PlanetCard__text">{info}</p>
+          </div>
+        )}
       </div>
-
     </>
   );
 };

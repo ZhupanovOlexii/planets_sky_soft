@@ -3,10 +3,7 @@
 }
 
 .input {
-  width: 150px;
-
-  margin: 20px auto;
-
+  
   &__value {
     padding-left: 10px;
     height: 30px;
@@ -20,12 +17,12 @@
 
 }
 
-.button {
+.sort__buttons {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  justify-content: space-around;
+  align-items: center;
 
-  &__sort {
+  &--item {
     height: 30px;
     margin-right: 20px;
     background-color: grey ;
@@ -40,4 +37,10 @@
     }
   }
 
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
 }

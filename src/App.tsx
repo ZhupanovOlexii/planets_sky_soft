@@ -1,17 +1,9 @@
-// import React, { useState, useEffect } from 'react';
 import React, { useState, useMemo } from 'react';
-
-import './App.scss';
 import { useHistory, useLocation } from 'react-router-dom';
 import planets from './api/data_for_test.json';
 import PlanetList from './components/PlanetList/PlanetList';
-
-// import PlanetDetails from './components/PlanetDetails/PlanetDetails';
-// import { getPlanets } from './helpers/api';
-
-// type Props = {
-//   planets:Planet[];
-// }
+import './App.scss';
+import Header from './components/Header/Header';
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -20,8 +12,6 @@ const App = () => {
   const searchParams = new URLSearchParams(location.search);
   const sortBy = useMemo(() => searchParams.get('sortBy') || '', [searchParams]);
   const sortOrder = useMemo(() => searchParams.get('sortOrder') || '', [searchParams]);
-  // const [sortField,setSortField]=useState('name')
-  // const isReversed=true;
 
   const SORT_OPTIONS = ['name', 'equatorialRadius', 'moons'];
 
@@ -54,48 +44,59 @@ const App = () => {
       case 'asc':
         switch (sortBy) {
           case 'name':
-            filteredPlanets.sort((a, b) => b.name.localeCompare(a.name));
+            filteredPlanets
+              .sort((a: Planet, b: Planet) => b.name.localeCompare(a.name));
             break;
 
           case 'equatorialRadius':
-            filteredPlanets.sort((a, b) => b.equatorialRadius.value - a.equatorialRadius.value);
+            filteredPlanets
+              .sort((a: Planet, b: Planet) => b.equatorialRadius.value - a.equatorialRadius.value);
             break;
 
           case 'moons':
-            filteredPlanets.sort((a: Planet, b: Planet) => b.moons.count - a.moons.count);
+            filteredPlanets
+              .sort((a: Planet, b: Planet) => b.moons.count - a.moons.count);
             break;
 
-          default: filteredPlanets.sort((a, b) => b.name.localeCompare(a.name));
+          default: filteredPlanets
+            .sort((a: Planet, b: Planet) => b.name.localeCompare(a.name));
         }
 
         break;
       case 'desc':
         filteredPlanets.reverse();
         break;
-      default: filteredPlanets.sort((a, b) => a.name.localeCompare(b.name));
+      default: filteredPlanets
+        .sort((a: Planet, b: Planet) => a.name.localeCompare(b.name));
     }
   }, [filteredPlanets, sortBy, sortOrder]);
 
   return (
     <div className="App">
-      <div className="input">
-        <input
-          type="text-area"
-          className="input__value"
-          placeholder="what you search"
-          onChange={searchQuery}
-        />
-      </div>
-      <div className="button">
-        {SORT_OPTIONS.map(sortField => (
-          <button
-            type="button"
-            className="button__sort"
-            onClick={() => sortingBy(sortField)}
-          >
-            {sortField}
-          </button>
-        ))}
+      <Header />
+      <div className="wrapper">
+
+        <div className="input">
+          <input
+            type="text-area"
+            className="input__value"
+            placeholder="what you search"
+            onChange={searchQuery}
+          />
+        </div>
+
+        <div className="sort__buttons">
+          {SORT_OPTIONS.map(sortField => (
+            <button
+              key={sortField}
+              type="button"
+              className="sort__buttons--item"
+              onClick={() => sortingBy(sortField)}
+            >
+              {sortField}
+            </button>
+          ))}
+        </div>
       </div>
 
       <PlanetList planets={filteredPlanets} />
